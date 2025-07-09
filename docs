@@ -1,0 +1,99 @@
+from fpdf import FPDF
+import unicodedata
+
+# Isi bilingual (Bahasa Inggris + Bahasa Indonesia)
+cv_bilingual = """
+NABIL GIBRAN FASHA
+Address / Alamat: Jl. Kolonel TB. Suwandi, Infinity South No.15, Gg. Perintis II, Serang, Banten, Indonesia
+Phone (WhatsApp): +62 821 2375 8724
+Email: gibranfasya12@gmail.com
+Current Location / Lokasi Saat Ini: Hamburg, Germany / Jerman
+Available for onboard learning experience (Volunteer Cadet / Entry-Level Deck Support)
+Siap untuk pengalaman pembelajaran di kapal (Taruna Sukarela / Dukungan Dek Pemula)
+
+PERSONAL INFORMATION / DATA DIRI
+Full Name / Nama Lengkap: Nabil Gibran Fasha
+Cadet Number / Nomor Taruna: 24.10.21.130
+Department / Jurusan: Nautical Science (Deck Department) / Nautika (Departemen Dek)
+Academic Program / Program Akademik: Diploma III – Nautic F
+Current Semester / Semester Saat Ini: Semester 2 (Second-Year Cadet / Taruna Tingkat II)
+Institution / Institusi: Banten Merchant Marine Polytechnic (Politeknik Pelayaran Banten)
+Academic Status / Status Akademik: On academic leave (1-year suspension) / Cuti akademik (1 tahun)
+Sea Project / Praktek Laut: Scheduled for 2027 / Direncanakan tahun 2027
+Graduation / Wisuda: Expected 2028 / Perkiraan 2028
+Certificates / Sertifikat:
+- BST (Basic Safety Training)
+- AFF (Advanced Fire Fighting)
+- Seaman Book (Buku Pelaut)
+All documents issued & stored at campus / Semua dokumen diterbitkan & disimpan di kampus
+
+CAREER OBJECTIVE / TUJUAN KARIER
+A highly motivated and resilient nautical cadet currently on academic leave.
+Seorang taruna pelayaran yang penuh semangat dan tangguh, sedang menjalani cuti akademik.
+Eager to gain real-world maritime experience aboard vessels while based in Hamburg, Germany.
+Berkeinginan kuat untuk mendapatkan pengalaman nyata di atas kapal selama berada di Hamburg, Jerman.
+Willing to contribute, learn, and grow in a challenging international environment.
+Siap berkontribusi, belajar, dan berkembang dalam lingkungan internasional yang menantang.
+
+EDUCATION / PENDIDIKAN
+Banten Merchant Marine Polytechnic (Politeknik Pelayaran Banten)
+Diploma III – Nautical Science (Deck Department)
+Semester 2 / Tingkat II
+Entry Year / Tahun Masuk: 2024
+Sea Project (Prala): 2027
+Officer Graduation: 2028
+
+MARINE TRAINING / PELATIHAN KEPELAUTAN
+- BST (Basic Safety Training)
+- AFF (Advanced Fire Fighting)
+- Seaman Book (Buku Pelaut)
+Documents are issued and currently at the academy.
+Dokumen telah diterbitkan dan saat ini berada di kampus.
+Currently based in Hamburg to learn and gain informal shipboard experience.
+Saat ini berdomisili di Hamburg untuk belajar dan mencari pengalaman langsung di atas kapal.
+
+SKILLS & COMPETENCIES / KETERAMPILAN & KOMPETENSI
+- Knowledge of shipboard routine and maritime terminology
+  Pengetahuan tentang rutinitas di kapal dan istilah maritim
+- Basic deck maintenance and mooring practices
+  Pemeliharaan dasar dek dan praktik tambat
+- Physical endurance and discipline
+  Ketahanan fisik dan disiplin
+- Fast learner, team-oriented, respectful
+  Cepat belajar, mampu kerja tim, dan sopan
+- Basic English communication
+  Kemampuan dasar berkomunikasi dalam Bahasa Inggris
+
+AVAILABILITY / KETERSEDIAAN
+Open to:
+- Volunteer Cadet / Taruna Sukarela
+- Deck Assistant / Asisten Dek
+- Entry-Level Maritime Intern / Magang Maritim Pemula
+Preferred region: Hamburg and surrounding European ports
+Wilayah yang diutamakan: Hamburg dan pelabuhan sekitarnya di Eropa
+
+REFERENCES / REFERENSI
+Available upon request / Tersedia atas permintaan
+"""
+
+# Membersihkan karakter untuk PDF
+def clean_text(text):
+    return unicodedata.normalize('NFKD', text).encode('latin-1', 'ignore').decode('latin-1')
+
+cleaned_text = clean_text(cv_bilingual)
+
+# Membuat PDF baru
+pdf = FPDF()
+pdf.add_page()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.set_font("Arial", size=11)
+
+# Menambahkan isi teks
+for line in cleaned_text.strip().split('\n'):
+    pdf.multi_cell(0, 8, line)
+
+# Simpan PDF
+pdf_output_path = "/mnt/data/Nabil_Gibran_Fasha_Bilingual_CV.pdf"
+pdf.output(pdf_output_path)
+
+pdf_output_path
